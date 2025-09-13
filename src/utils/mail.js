@@ -46,42 +46,40 @@ const sendEmail = async (options) => {
     theme: "default",
     product: {
       name: "Task manager",
-      link: "https://taskmanagelink.com"
-    }
-  })
+      link: "https://taskmanagelink.com",
+    },
+  });
 
-  const emailTextual = mailGenerator.generatePlaintext(options.maiilgenContent)
-  const emailHtml = mailGenerator.generate(options.mailgenContent)
+  const emailTextual = mailGenerator.generatePlaintext(options.maiilgenContent);
+  const emailHtml = mailGenerator.generate(options.mailgenContent);
 
-  const transporter = nodemailer.createTransport(
-    {
-      host: process.env.MAILTRAP_SMTP_HOST,
-      port: process.env.MAILTRAP_SMTP_PORT,
-      auth: {
-        user: process.env.MAILTRAP_SMTP_USER,
-        pass: process.env.MAILTRAP_SMTP_PASS
-      }
-
-    }
-  )
+  const transporter = nodemailer.createTransport({
+    host: process.env.MAILTRAP_SMTP_HOST,
+    port: process.env.MAILTRAP_SMTP_PORT,
+    auth: {
+      user: process.env.MAILTRAP_SMTP_USER,
+      pass: process.env.MAILTRAP_SMTP_PASS,
+    },
+  });
   const mail = {
     from: "mail.taskmanager@example.com",
     to: options.email,
     subject: options.subject,
     text: emailTextual,
-    html: emailHtml
-  }
+    html: emailHtml,
+  };
 
   try {
-    await transporter.sendMail(mail)
+    await transporter.sendMail(mail);
   } catch (error) {
-    console.error("Email service failed silently.Make sure that you have provided your MAILTRAP credentials in the .env file.")
+    console.error(
+      "Email service failed silently.Make sure that you have provided your MAILTRAP credentials in the .env file.",
+    );
   }
-}
-
+};
 
 export {
-    emailVerificationMailgenContent,
+  emailVerificationMailgenContent,
   forgotPasswordMailgenContent,
-    sendEmail
-}
+  sendEmail,
+};
