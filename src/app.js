@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { ApiResponse } from "./utils/api-response.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -24,6 +25,6 @@ import authRouter from "./routes/auth.routes.js";
 
 app.use("/api/v1/healthcheck", healthCheckRouter);
 app.use("/api/v1/auth", authRouter);
-
+app.use(cookieParser());
 
 export default app;
